@@ -1,5 +1,6 @@
 package com.devfabricio.employeeservice.controllers;
 
+import com.devfabricio.employeeservice.dtos.APIResponseDTO;
 import com.devfabricio.employeeservice.dtos.EmployeeDTO;
 import com.devfabricio.employeeservice.services.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -23,9 +24,9 @@ public class EmployeeController {
 
     // get employee
     @GetMapping(value = "{id}")
-    public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable(value = "id") Long employeeId) {
-        EmployeeDTO employeeDTO = employeeService.getEmployeeById(employeeId);
-        return new ResponseEntity<>(employeeDTO, HttpStatus.OK);
+    public ResponseEntity<APIResponseDTO> getEmployee(@PathVariable(value = "id") Long employeeId) {
+        APIResponseDTO apiResponseDTO = employeeService.getEmployeeById(employeeId);
+        return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
     }
 
 }
