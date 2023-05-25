@@ -5,12 +5,10 @@ import com.devfabricio.employeeservice.dtos.DepartmentDTO;
 import com.devfabricio.employeeservice.dtos.EmployeeDTO;
 import com.devfabricio.employeeservice.entities.Employee;
 import com.devfabricio.employeeservice.repositories.EmployeeRepository;
+import com.devfabricio.employeeservice.services.APIClient;
 import com.devfabricio.employeeservice.services.EmployeeService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
 @AllArgsConstructor
@@ -19,7 +17,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
 
     //private RestTemplate restTemplate;
-    private WebClient webClient;
+    //private WebClient webClient;
+    private APIClient apiClient;
 
     @Override
     public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO) {
@@ -56,10 +55,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         DepartmentDTO departmentDTO = responseEntity.getBody();*/
 
-        DepartmentDTO departmentDTO = webClient.get().uri("http://localhost:8080/api/department/" + employee.getDepartmentCode())
+        /*DepartmentDTO departmentDTO = webClient.get().uri("http://localhost:8080/api/department/" + employee.getDepartmentCode())
                 .retrieve()
                 .bodyToMono(DepartmentDTO.class)
-                .block();
+                .block();*/
+
+        DepartmentDTO departmentDTO = apiClient.getDepartment(employee.getDepartmentCode());
 
         EmployeeDTO employeeDTO = new EmployeeDTO(
                 employee.getId(),
