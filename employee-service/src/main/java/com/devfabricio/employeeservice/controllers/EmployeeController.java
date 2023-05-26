@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("api/employees")
+@RequestMapping(value = "api/employees")
 @AllArgsConstructor
 public class EmployeeController {
 

@@ -32,14 +32,14 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employeeDto.getDepartmentCode()
         );
 
-        Employee saveDEmployee = employeeRepository.save(employee);
+        Employee savedEmployee = employeeRepository.save(employee);
 
         EmployeeDTO savedEmployeeDto = new EmployeeDTO(
-                saveDEmployee.getId(),
-                saveDEmployee.getFirstName(),
-                saveDEmployee.getLastName(),
-                saveDEmployee.getEmail(),
-                saveDEmployee.getDepartmentCode()
+                savedEmployee.getId(),
+                savedEmployee.getFirstName(),
+                savedEmployee.getLastName(),
+                savedEmployee.getEmail(),
+                savedEmployee.getDepartmentCode()
         );
 
         return savedEmployeeDto;
