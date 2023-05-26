@@ -12,8 +12,10 @@
         <module name="employee-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="17" />
   </component>
   <component name="JavacSettings">
+    <option name="PREFER_TARGET_JDK_COMPILER" value="false" />
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="department-service" options="-parameters" />
       <module name="employee-service" options="-parameters" />
