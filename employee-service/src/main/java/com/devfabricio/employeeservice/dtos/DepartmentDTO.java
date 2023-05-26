@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DepartmentDTO {
-
     private Long id;
     private String departmentName;
     private String departmentDescription;

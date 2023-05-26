@@ -9,6 +9,7 @@ import com.devfabricio.employeeservice.services.APIClient;
 import com.devfabricio.employeeservice.services.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 @Service
 @AllArgsConstructor
@@ -16,32 +17,32 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private EmployeeRepository employeeRepository;
 
-    //private RestTemplate restTemplate;
-    //private WebClient webClient;
+    private RestTemplate restTemplate;
+    // private WebClient webClient;
     private APIClient apiClient;
 
     @Override
-    public EmployeeDTO saveEmployee(EmployeeDTO employeeDTO) {
+    public EmployeeDTO saveEmployee(EmployeeDTO employeeDto) {
 
         Employee employee = new Employee(
-                employeeDTO.getId(),
-                employeeDTO.getFirstName(),
-                employeeDTO.getLastName(),
-                employeeDTO.getEmail(),
-                employeeDTO.getDepartmentCode()
+                employeeDto.getId(),
+                employeeDto.getFirstName(),
+                employeeDto.getLastName(),
+                employeeDto.getEmail(),
+                employeeDto.getDepartmentCode()
         );
 
-        Employee savedEmployee = employeeRepository.save(employee);
+        Employee saveDEmployee = employeeRepository.save(employee);
 
-        EmployeeDTO savedEmployeeDTO = new EmployeeDTO(
-                savedEmployee.getId(),
-                savedEmployee.getFirstName(),
-                savedEmployee.getLastName(),
-                savedEmployee.getEmail(),
-                savedEmployee.getDepartmentCode()
+        EmployeeDTO savedEmployeeDto = new EmployeeDTO(
+                saveDEmployee.getId(),
+                saveDEmployee.getFirstName(),
+                saveDEmployee.getLastName(),
+                saveDEmployee.getEmail(),
+                saveDEmployee.getDepartmentCode()
         );
 
-        return savedEmployeeDTO;
+        return savedEmployeeDto;
     }
 
     @Override
@@ -49,20 +50,20 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee employee = employeeRepository.findById(employeeId).get();
 
-        /*ResponseEntity<DepartmentDTO> responseEntity =  restTemplate
-                .getForEntity("http://localhost:8080/api/department/" + employee.getDepartmentCode(),
-                DepartmentDTO.class);
+//        ResponseEntity<DepartmentDto> responseEntity = restTemplate.getForEntity("http://DEPARTMENT-SERVICE/api/departments/" + employee.getDepartmentCode(),
+//                DepartmentDto.class);
+//
+//        DepartmentDto departmentDto = responseEntity.getBody();
 
-        DepartmentDTO departmentDTO = responseEntity.getBody();*/
+//        DepartmentDto departmentDto = webClient.get()
+//                .uri("http://localhost:8080/api/departments/" + employee.getDepartmentCode())
+//                .retrieve()
+//                .bodyToMono(DepartmentDto.class)
+//                .block();
 
-        /*DepartmentDTO departmentDTO = webClient.get().uri("http://localhost:8080/api/department/" + employee.getDepartmentCode())
-                .retrieve()
-                .bodyToMono(DepartmentDTO.class)
-                .block();*/
+        DepartmentDTO departmentDto = apiClient.getDepartment(employee.getDepartmentCode());
 
-        DepartmentDTO departmentDTO = apiClient.getDepartment(employee.getDepartmentCode());
-
-        EmployeeDTO employeeDTO = new EmployeeDTO(
+        EmployeeDTO employeeDto = new EmployeeDTO(
                 employee.getId(),
                 employee.getFirstName(),
                 employee.getLastName(),
@@ -70,10 +71,10 @@ public class EmployeeServiceImpl implements EmployeeService {
                 employee.getDepartmentCode()
         );
 
-        APIResponseDTO apiResponseDTO = new APIResponseDTO();
-        apiResponseDTO.setEmployee(employeeDTO);
-        apiResponseDTO.setDepartment(departmentDTO);
+        APIResponseDTO apiResponseDto = new APIResponseDTO();
+        apiResponseDto.setEmployee(employeeDto);
+        apiResponseDto.setDepartment(departmentDto);
 
-        return apiResponseDTO;
+        return apiResponseDto;
     }
 }

@@ -10,7 +10,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class APIResponseDTO {
-
     private EmployeeDTO employee;
     private DepartmentDTO department;
 }
