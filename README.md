@@ -7,7 +7,6 @@ This project is an employee management web application using microservices with 
 - Spring Boot
 - Spring Data JPA
 - Spring Cloud
-- Zipkin
 - Resilience4J
 - Kafka
 - RabbitMQ
